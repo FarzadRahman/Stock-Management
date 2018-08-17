@@ -50,12 +50,12 @@
                     <div class="form-group row">
                         <div class="col-12">
                             {{--<input class="form-control" name="loginId" type="text" placeholder="login id" required>--}}
-                            <input id="loginId" type="text" placeholder="Id" class="form-control{{ $errors->has('loginId') ? ' is-invalid' : '' }}" name="loginId" value="{{ old('loginId') }}" required autofocus>
+                            <input id="email" type="email" placeholder="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
 
-                            @if ($errors->has('loginId'))
+                            @if ($errors->has('email'))
                                 <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('loginId') }}</strong>
+                                        <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                             @endif
                         </div>
@@ -86,7 +86,7 @@
                     <div class="form-group text-center row m-t-20">
                         <div class="col-12">
                             {{--<button class="btn btn-info btn-block waves-effect waves-light" type="submit">Log In</button>--}}
-                            <a class="btn btn-info btn-block waves-effect waves-light"  href="{{route('dashboard')}}">Log In</a>
+                            <button class="btn btn-info btn-block waves-effect waves-light"  type="submit">Log In</button>
 
 
                             {{--<button type="submit" class="btn btn-info btn-block waves-effect waves-light">--}}

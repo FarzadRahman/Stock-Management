@@ -24,42 +24,44 @@
 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Client Name</label>
-                                                <input type="text" class="form-control col-md-10" placeholder="Client Name">
+                                    <form method="post" action="{{route('client.insert')}}">
+                                        {{csrf_field()}}
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Client Name</label>
+                                                    <input type="text" class="form-control col-md-10" name="clientName" placeholder="Client Name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Area</label>
+                                                    <select class="form-control col-md-10" name="areaId">
+                                                        <option value="">Select Area</option>
+                                                        @foreach($areas as $area)
+                                                            <option value="{{$area->areaId}}">{{$area->areaName}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Area</label>
-                                                <input type="text" class="form-control col-md-10" placeholder="Area">
+                                            <div class="col-md-6">
+                                                <div class="form-group" >
+                                                    <label>Address</label>
+                                                    <textarea class="form-control" name="address" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Status</label>
+                                                    <select class="form-control col-md-10" name="statusId">
+                                                        @foreach($status as $value)
+                                                            <option value="{{$value->statusId}}">{{$value->statusName}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+
+                                                <button class="btn btn-success">Insert</button>
+
                                             </div>
-
-
-
-
                                         </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Address</label>
-                                                <textarea class="form-control"></textarea>
-                                                {{--<input type="text" class="form-control col-md-10" placeholder="Address">--}}
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Image</label>
-                                                <input type="file" class="form-control col-md-10" placeholder="Color">
-                                            </div>
-
-                                            <button class="btn btn-success">Insert</button>
-
-
-
-                                        </div>
-
-
-
-                                    </div>
+                                    </form>
                                 </div>
 
                                 <!-- Modal footer -->
@@ -83,156 +85,22 @@
                         <tr>
 
                             <th>Client</th>
-                            <th>Location</th>
-                            <th>Register Date</th>
-
-                            <th width="8%">Status</th>
+                            <th>Area</th>
+                            <th>Address</th>
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
-
-                        <tr>
-
-                            <td>demo client</td>
-                            <td>Dhaka</td>
-                            <td>2018/04/10</td>
-                            <td>Pending
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>demo client</td>
-                            <td>Rangpur</td>
-
-                            <td>2018/06/12</td>
-                            <td>Active
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>demo client</td>
-                            <td>Barishal</td>
-
-                            <td>2018/05/12</td>
-                            <td>Active
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>demo client</td>
-                            <td>Khulna</td>
-                            <td>2018/02/15</td>
-                            <td>Pending
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>demo client </td>
-                            <td>Khulna</td>
-                            <td>2018/04/10</td>
-                            <td>Pending
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>demo client</td>
-                            <td>Dhaka</td>
-
-                            <td>2018/06/12</td>
-                            <td>Active
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>demo client </td>
-                            <td>Barishal</td>
-
-                            <td>2018/05/12</td>
-                            <td>Active
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>demo client</td>
-                            <td>Dhaka</td>
-
-                            <td>2018/02/15</td>
-                            <td>Active
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>demo client</td>
-                            <td>Barishal</td>
-                            <td>2011/04/25</td>
-                            <td>Active
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>Demo Client</td>
-                            <td>Dhaka</td>
-
-                            <td>2018/04/25</td>
-                            <td>Active
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>demo client</td>
-                            <td>Dhaka</td>
-
-                            <td>2011/04/25</td>
-                            <td>Active
-                            </td>
-                        </tr>
+                        @foreach($clients as $client)
+                            <tr>
+                                <td>{{$client->clientName}}</td>
+                                <td>{{$client->areaName}}</td>
+                                <td>{{$client->address}}</td>
+                                <td>{{$client->statusName}}</td>
+                            </tr>
+                        @endforeach
 
 
-
-
-
-                        <tr>
-
-                            <td>demo client</td>
-                            <td>Khulna</td>
-                            <td>2011/04/25</td>
-                            <td>Active
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>demo client</td>
-                            <td>Barishal</td>
-                            <td>2018/04/10</td>
-                            <td>Active
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>demo client</td>
-                            <td>Dhaka</td>
-
-                            <td>2018/06/12</td>
-                            <td>Active
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>demo client</td>
-                            <td>Dhaka</td>
-
-                            <td>2018/05/12</td>
-                            <td>Active
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>demo client</td>
-                            <td>Khulna</td>
-                            <td>2018/02/15</td>
-                            <td>Active
-                            </td>
-                        </tr>
 
                         </tbody>
 
