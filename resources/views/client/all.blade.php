@@ -1,6 +1,39 @@
 @extends('main')
 @section('content')
 
+    <!-- The Modal -->
+    <div class="modal" id="clientEditModal">
+        <div class="modal-dialog" style="max-width: 80%;">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Client</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div id="clientEditModalBody">
+
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
     <div class="row">
         <div class="col-12">
             <div class="card m-b-30">
@@ -88,6 +121,7 @@
                             <th>Area</th>
                             <th>Address</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -97,6 +131,7 @@
                                 <td>{{$client->areaName}}</td>
                                 <td>{{$client->address}}</td>
                                 <td>{{$client->statusName}}</td>
+                                <td><button class="btn btn-info" data-panel-id="{{$client->clientId}}" onclick="editClient(this)">Edit</button></td>
                             </tr>
                         @endforeach
 
@@ -145,6 +180,23 @@
                 }
             );
         } );
+
+        function editClient(x) {
+            var clientId=$(x).data('panel-id');
+
+            $.ajax({
+            type: 'POST',
+            url: "{!! route('client.edit') !!}",
+            cache: false,
+            data: {_token: "{{csrf_token()}}",'clientId': clientId},
+            success: function (data) {
+                $('#clientEditModalBody').html(data);
+                $('#clientEditModal').modal();
+            // console.log(data);
+            }
+            });
+        }
+
     </script>
 
 @endsection

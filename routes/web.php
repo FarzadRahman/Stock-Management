@@ -25,9 +25,14 @@ Route::view('invoice','invoice')->name('invoice');
 //Client
 Route::get('client/all','ClientController@index')->name('client.all');
 Route::post('client/all','ClientController@insert')->name('client.insert');
+Route::post('client/edit','ClientController@edit')->name('client.edit');
+
+//Product
+Route::get('products','ProductController@index')->name('product.all');
+Route::post('products','ProductController@insert')->name('product.insert');
 
 
-Route::view('products','product.all')->name('product.all');
+
 Route::view('bill/create','bill.create')->name('bill.create');
 Route::get('invoice/generate','InvoiceController@generate')->name('invoice.generate');
 

@@ -24,42 +24,44 @@
 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                  <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control col-md-10" placeholder="Product Name">
+                                    <form method="post" action="{{route('product.insert')}}">
+                                        {{csrf_field()}}
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" name="productName" class="form-control col-md-10" placeholder="Product Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control col-md-10" name="code" placeholder="Code">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control col-md-10" name="sku" placeholder="SKU">
+                                            </div>
+
+
+
                                         </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control col-md-10" placeholder="Color">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control col-md-10" placeholder="SKU">
-                                        </div>
+
+                                          <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <input type="number" class="form-control col-md-10" name="price" placeholder="Unit Price">
+                                              </div>
+                                              <div class="form-group">
+                                                  <label>Image</label>
+                                                  <input type="file" class="form-control col-md-10" name="image" placeholder="Image">
+                                              </div>
+
+                                              <button class="btn btn-success">Insert</button>
 
 
 
-                                    </div>
-
-                                      <div class="col-md-6">
-                                          <div class="form-group">
-                                              <input type="number" class="form-control col-md-10" placeholder="Unit Price">
                                           </div>
-                                          <div class="form-group">
-                                              <label>Image</label>
-                                              <input type="file" class="form-control col-md-10" placeholder="Color">
-                                          </div>
-                                          {{--<div class="form-group">--}}
-                                              {{--<input type="text" class="form-control col-md-10" placeholder="SKU">--}}
-                                          {{--</div>--}}
-                                          <button class="btn btn-success">Insert</button>
+
 
 
 
                                       </div>
-
-
-
-                                  </div>
+                                    </form>
                                 </div>
 
                                 <!-- Modal footer -->

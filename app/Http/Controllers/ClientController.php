@@ -15,7 +15,7 @@ class ClientController extends Controller
         $status=Status::where('statusType','state')
             ->get();
 
-        $clients=Client::select('clientName','address','areaName','statusName')
+        $clients=Client::select('clientId','clientName','address','areaName','statusName')
             ->leftJoin('area','area.areaId','client.areaId')
             ->leftJoin('status','status.statusId','client.statusId')
             ->get();
@@ -27,7 +27,17 @@ class ClientController extends Controller
 
     public function insert(Request $r){
 
-        $client=new Client();
+        if($r->clientId){
+            $client=Client::findOrFail($r->clientId);
+            Session::flash('message', 'Client Edited successfully!');
+
+        }
+        else{
+            $client=new Client();
+            Session::flash('message', 'Client added successfully!');
+        }
+
+
         $client->clientName=$r->clientName;
         $client->address=$r->address;
         $client->areaId=$r->areaId;
@@ -35,9 +45,16 @@ class ClientController extends Controller
         $client->save();
 
 
-        Session::flash('message', 'Client added successfully!');
         return redirect()->route('client.all');
 
-//        return $r;
+    }
+
+    public function edit(Request $r){
+        $client=Client::findOrFail($r->clientId);
+        $areas=Area::get();
+        $status=Status::where('statusType','state')
+            ->get();
+
+        return view('client.edit',compact('client','areas','status'));
     }
 }
