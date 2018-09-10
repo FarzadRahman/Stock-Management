@@ -29,12 +29,14 @@ Route::post('client/edit','ClientController@edit')->name('client.edit');
 
 //Product
 Route::get('products','ProductController@index')->name('product.all');
+Route::post('products/getProductData','ProductController@getProductData')->name('product.getProductData');
 Route::post('products','ProductController@insert')->name('product.insert');
+Route::post('product/edit','ProductController@edit')->name('product.edit');
+Route::post('product/stock','ProductController@stock')->name('product.stock');
+Route::post('product/insertQuantity','ProductController@insertQuantity')->name('insertQuantity');
 
 
 
-Route::view('bill/create','bill.create')->name('bill.create');
-Route::get('invoice/generate','InvoiceController@generate')->name('invoice.generate');
 
 
 
@@ -51,3 +53,14 @@ Route::view('manage/education','manage.education')->name('manage.education');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Cart
+Route::post('/card/add','InvoiceController@addCart')->name('card.add');
+Route::post('/card/refresh','InvoiceController@refreshCart')->name('card.refresh');
+Route::post('/card/changeDiscount','InvoiceController@changeDiscount')->name('cart.changeDiscount');
+Route::post('/card/changeQuantity','InvoiceController@changeQuantity')->name('cart.changeQuantity');
+Route::post('/cart/deleteProduct','InvoiceController@deleteProduct')->name('cart.deleteProduct');
+
+//Invoice
+Route::get('bill/create','InvoiceController@bill')->name('bill.create');
+Route::get('invoice/generate','InvoiceController@generate')->name('invoice.generate');

@@ -113,7 +113,6 @@
                 </td>
                 <td style="border: none;width:40%; margin-top: -100px;">
                     <table style="margin-bottom: 70px;">
-
                         <tr >
                             <td>Invoice Number:</td>
                             <td ><b>12345678</b></td>
@@ -135,6 +134,7 @@
 
         </table>
 
+
         <table border="0" style="width:100%;">
             <tr style="background: #B0DBF0;">
                 {{--<td style="text-align: center;" colspan=""><b>Date</b></td>--}}
@@ -142,50 +142,42 @@
                 <td style="text-align: center;" colspan=""><b>Sku</b></td>
                 <td style="text-align: center;" colspan=""><b>Quantity</b></td>
                 <td style="text-align: center;" colspan=""><b>Rate</b></td>
+                <td style="text-align: center;" colspan=""><b>Discount</b></td>
                 <td style="text-align: center;" colspan=""><b>Total</b></td>
             </tr>
-            @php($total=0)
-            {{--@foreach($jobs as $job)--}}
+            @php($grandTotal=0)
+
+            @foreach($cart as $product)
 
                 <tr>
+                    <td style="text-align: center;">{{$product->productName}}</td>
+                    <td style="text-align: center;">{{$product->sku}}</td>
+                    <td style="text-align: center;">{{$product->quantity}}</td>
+                    <td style="text-align: center;">{{$product->rate}}</td>
+                    <td style="text-align: center;">{{$product->discount}}</td>
+                    <td style="text-align: center;">
+                        @php($grandTotal+=$product->quantity*$product->price*(100-$product->discount)/100)
+                        {{$product->quantity*$product->price*(100-$product->discount)/100}}
 
-                    <td style="text-align: center;">Product 1</td>
-                    <td style="text-align: center;">654123</td>
-                    <td style="text-align: center;">20</td>
-                    <td style="text-align: center;">400</td>
-                    <td style="text-align: center;">8000</td>
+                    </td>
                 </tr>
-            <tr>
-                <td style="text-align: center;">Product 2</td>
-                <td style="text-align: center;">654654</td>
-                <td style="text-align: center;">10</td>
-                <td style="text-align: center;">500</td>
-                <td style="text-align: center;">5000</td>
-            </tr>
+            @endforeach
+
+
 
             <tr>
-                <td style="text-align: center;">Product 3</td>
-                <td style="text-align: center;">654789</td>
-                <td style="text-align: center;">10</td>
-                <td style="text-align: center;">1000</td>
-                <td style="text-align: center;">10000</td>
-            </tr>
-                {{--@php($total+=$job->quantity * $job->rate)--}}
-            {{--@endforeach--}}
-
-            <tr>
-                <td colspan="4" style="text-align: right;"><b>Total =</b> </td>
-                <td style="text-align: center;">23000 /-</td>
+                <td colspan="5" style="text-align: right;"><b>Total =</b> </td>
+                <td style="text-align: center;">{{$grandTotal}} /-</td>
 
             </tr>
             <tr>
-                <td colspan="4" style="text-align: right;"><b>Paid =</b> </td>
+                <td colspan="5" style="text-align: right;"><b>Paid =</b> </td>
                 <td style="text-align: center;">0</td>
 
             </tr>
             <tr>
-                <td colspan="4" style="text-align: right;"><b>Due =</b> </td>
-                <td style="text-align: center;">23000 /-</td>
+                <td colspan="5" style="text-align: right;"><b>Due =</b> </td>
+                <td style="text-align: center;">{{$grandTotal}} /-</td>
 
             </tr>
 
