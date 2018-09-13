@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label>Select Client</label>
-                    <select class="form-control">
+                    <select class="form-control" id="client">
                         <option value="">Select Client</option>
                         @foreach($clients as $client)
                             <option value="{{$client->clientId}}">{{$client->clientName}}</option>

@@ -4,18 +4,51 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Client;
+use App\InvoiceChild;
+use App\InvoiceMain;
 use App\Product;
 use Illuminate\Http\Request;
 use PDF;
 class InvoiceController extends Controller
 {
-   public function generate(){
 
-       $temp=Cart::leftJoin('product','product.productId','cart.productId')
+    public function index(){
+        $invoice=InvoiceMain::select('invoice_mainId','invoiceNumber','clientName','total','cashReceived','invoice_main.created_at','statusName')
+            ->leftJoin('client','client.clientId','invoice_main.clientId')
+            ->leftJoin('status','status.statusId','invoice_main.statusId')
+            ->get();
+
+//        return $invoice;
+        return view('invoice',compact('invoice'));
+    }
+
+   public function generate($clientId){
+
+
+       $cart=Cart::leftJoin('product','product.productId','cart.productId')
            ->get();
-       $cart=$temp;
-//       Cart::truncate();
-//       return $cart;
+       $invoice=new InvoiceMain();
+       $invoice->invoiceNumber="123456";
+       $invoice->clientId=$clientId;
+       $invoice->statusId=5;
+       $invoice->save();
+
+       foreach ($cart as $product){
+           $invoiceChild=new InvoiceChild();
+           $invoiceChild->productId=$product->productId;
+           $invoiceChild->quantity=$product->quantity;
+           $invoiceChild->rate=$product->rate;
+
+           $invoiceChild->discount=$product->discount;
+           $invoiceChild->invoiceMainId= $invoice->invoice_mainId;
+           $invoiceChild->save();
+       }
+       Cart::truncate();
+
+       $cart=InvoiceChild::where('invoiceMainId',$invoice->invoice_mainId)
+           ->leftJoin('product','product.productId','invoice_child.productId')
+           ->get();
+
 
        $pdf = PDF::loadView('pdf',compact('cart'));
 //

@@ -20,7 +20,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::view('apply','usercv')->name('cv.apply');
 
 Route::view('dashboard','dashboard')->name('dashboard');
-Route::view('invoice','invoice')->name('invoice');
+
 
 //Client
 Route::get('client/all','ClientController@index')->name('client.all');
@@ -62,5 +62,6 @@ Route::post('/card/changeQuantity','InvoiceController@changeQuantity')->name('ca
 Route::post('/cart/deleteProduct','InvoiceController@deleteProduct')->name('cart.deleteProduct');
 
 //Invoice
+Route::get('invoice','InvoiceController@index')->name('invoice');
 Route::get('bill/create','InvoiceController@bill')->name('bill.create');
-Route::get('invoice/generate','InvoiceController@generate')->name('invoice.generate');
+Route::get('invoice/generate/{clientId}','InvoiceController@generate')->name('invoice.generate');

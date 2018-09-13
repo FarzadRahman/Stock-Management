@@ -58,7 +58,8 @@
 
     <tr>
         <td colspan="5"></td>
-        <td><a href="{{route('invoice.generate')}}" class="btn btn-success"> Generate PDF</a></td>
+        {{--<td><a href="{{route('invoice.generate')}}" class="btn btn-success"> Generate PDF</a></td>--}}
+        <td><button onclick="generatePdf()" class="btn btn-success"> Generate PDF</button></td>
     </tr>
 
 
@@ -133,11 +134,24 @@
         cache: false,
         data: {_token: "{{csrf_token()}}",id: id,discount:discount},
         success: function (data) {
-        // console.log(data);
             refreshCart();
 
         }
         });
+    }
+
+    function generatePdf() {
+        var clientId=$('#client').val();
+
+        if(clientId ==""){
+            alert('Please Select Client');
+            return false;
+        }
+
+        var url = "{{ route('invoice.generate', ':clientId') }}";
+        url = url.replace(':clientId', clientId);
+        document.location.href=url;
+
     }
 
 </script>

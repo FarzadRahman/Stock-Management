@@ -20,6 +20,19 @@
             </tr>
             </thead>
             <tbody>
+            @foreach ($invoice as $inv)
+                <tr >
+                    <td><a href="#">{{$inv->invoiceNumber}}</a></td>
+                    <td>{{$inv->clientName}}</td>
+                    <td>{{$inv->total}}</td>
+                    <td>{{$inv->cashReceived}}</td>
+                    <td>{{$inv->created_at}}</td>
+                    <td>{{$inv->statusName}}</td>
+
+                    </td>
+                </tr>
+
+            @endforeach
 
             <tr style="background: #FF5733">
                 <td><a href="{{url('public/invoice/123456_2.pdf')}}">123456898</a></td>
@@ -30,71 +43,71 @@
                 <td>Due
                 </td>
             </tr>
-            <tr>
-                <td><a href="{{url('public/invoice/123456_2.pdf')}}">123126898</a></td>
-                <td>demo client</td>
-                <td>12000</td>
-                <td>12000</td>
-                <td>2018-06-10</td>
-                <td>Paid
-                </td>
-            </tr>
+            {{--<tr>--}}
+                {{--<td><a href="{{url('public/invoice/123456_2.pdf')}}">123126898</a></td>--}}
+                {{--<td>demo client</td>--}}
+                {{--<td>12000</td>--}}
+                {{--<td>12000</td>--}}
+                {{--<td>2018-06-10</td>--}}
+                {{--<td>Paid--}}
+                {{--</td>--}}
+            {{--</tr>--}}
 
-            <tr>
-                <td><a href="{{url('public/invoice/123456_2.pdf')}}">45656898</a></td>
-                <td>demo client</td>
-                <td>12000</td>
-                <td>12000</td>
-                <td>2018-07-10</td>
-                <td>Paid
-                </td>
-            </tr>
+            {{--<tr>--}}
+                {{--<td><a href="{{url('public/invoice/123456_2.pdf')}}">45656898</a></td>--}}
+                {{--<td>demo client</td>--}}
+                {{--<td>12000</td>--}}
+                {{--<td>12000</td>--}}
+                {{--<td>2018-07-10</td>--}}
+                {{--<td>Paid--}}
+                {{--</td>--}}
+            {{--</tr>--}}
 
-            <tr style="background: #FF5733">
-                <td><a href="{{url('public/invoice/123456_2.pdf')}}">321456898</a></td>
-                <td>demo client</td>
-                <td>12000</td>
-                <td>0</td>
-                <td>2018-04-10</td>
-                <td>Due
-                </td>
-            </tr>
-            <tr>
-                <td><a href="{{url('public/invoice/123456_2.pdf')}}">123456898</a></td>
-                <td>demo client</td>
-                <td>12000</td>
-                <td>12000</td>
-                <td>2018-04-10</td>
-                <td>Paid
-                </td>
-            </tr><tr>
-                <td><a href="{{url('public/invoice/123456_2.pdf')}}">789456898</a></td>
-                <td>demo client</td>
-                <td>12000</td>
-                <td>12000</td>
-                <td>2018-04-10</td>
-                <td>Paid
-                </td>
-            </tr>
+            {{--<tr style="background: #FF5733">--}}
+                {{--<td><a href="{{url('public/invoice/123456_2.pdf')}}">321456898</a></td>--}}
+                {{--<td>demo client</td>--}}
+                {{--<td>12000</td>--}}
+                {{--<td>0</td>--}}
+                {{--<td>2018-04-10</td>--}}
+                {{--<td>Due--}}
+                {{--</td>--}}
+            {{--</tr>--}}
+            {{--<tr>--}}
+                {{--<td><a href="{{url('public/invoice/123456_2.pdf')}}">123456898</a></td>--}}
+                {{--<td>demo client</td>--}}
+                {{--<td>12000</td>--}}
+                {{--<td>12000</td>--}}
+                {{--<td>2018-04-10</td>--}}
+                {{--<td>Paid--}}
+                {{--</td>--}}
+            {{--</tr><tr>--}}
+                {{--<td><a href="{{url('public/invoice/123456_2.pdf')}}">789456898</a></td>--}}
+                {{--<td>demo client</td>--}}
+                {{--<td>12000</td>--}}
+                {{--<td>12000</td>--}}
+                {{--<td>2018-04-10</td>--}}
+                {{--<td>Paid--}}
+                {{--</td>--}}
+            {{--</tr>--}}
 
-            <tr style="background: #FF5733">
-                <td><a href="{{url('public/invoice/123456_2.pdf')}}">654456898</a></td>
-                <td>demo client</td>
-                <td>12000</td>
-                <td>0</td>
-                <td>2018-04-10</td>
-                <td>Due
-                </td>
-            </tr>
-            <tr>
-                <td><a href="{{url('public/invoice/123456_2.pdf')}}">852456898</a></td>
-                <td>demo client</td>
-                <td>12000</td>
-                <td>12000</td>
-                <td>2018-08-10</td>
-                <td>Paid
-                </td>
-            </tr>
+            {{--<tr style="background: #FF5733">--}}
+                {{--<td><a href="{{url('public/invoice/123456_2.pdf')}}">654456898</a></td>--}}
+                {{--<td>demo client</td>--}}
+                {{--<td>12000</td>--}}
+                {{--<td>0</td>--}}
+                {{--<td>2018-04-10</td>--}}
+                {{--<td>Due--}}
+                {{--</td>--}}
+            {{--</tr>--}}
+            {{--<tr>--}}
+                {{--<td><a href="{{url('public/invoice/123456_2.pdf')}}">852456898</a></td>--}}
+                {{--<td>demo client</td>--}}
+                {{--<td>12000</td>--}}
+                {{--<td>12000</td>--}}
+                {{--<td>2018-08-10</td>--}}
+                {{--<td>Paid--}}
+                {{--</td>--}}
+            {{--</tr>--}}
 
             </tbody>
 
