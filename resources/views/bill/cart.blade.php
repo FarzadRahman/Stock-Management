@@ -4,7 +4,7 @@
     <th>Sku</th>
     <th>Quantity</th>
     <th>Rate</th>
-    <th>Discount</th>
+    <th>Discount (%)</th>
     <th>Total</th>
     <th>Action</th>
     </thead>

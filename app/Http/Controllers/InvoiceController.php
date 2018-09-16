@@ -32,6 +32,7 @@ class InvoiceController extends Controller
        $invoice->clientId=$clientId;
        $invoice->statusId=5;
        $invoice->save();
+       $sum=0;
 
        foreach ($cart as $product){
            $invoiceChild=new InvoiceChild();
@@ -42,18 +43,48 @@ class InvoiceController extends Controller
            $invoiceChild->discount=$product->discount;
            $invoiceChild->invoiceMainId= $invoice->invoice_mainId;
            $invoiceChild->save();
+           $sum+=$product->quantity*$product->rate*(100-$product->discount)/100;
        }
-       Cart::truncate();
 
-       $cart=InvoiceChild::where('invoiceMainId',$invoice->invoice_mainId)
+
+       $invoice->total=$sum;
+       $invoice->invoiceNumber=date('y-m-d').'_'.$invoice->invoice_mainId;
+       $invoice->save();
+
+       $carts=InvoiceChild::where('invoiceMainId',$invoice->invoice_mainId)
            ->leftJoin('product','product.productId','invoice_child.productId')
            ->get();
 
 
-       $pdf = PDF::loadView('pdf',compact('cart'));
+
+//       return $cart;
+
+
+//       $pdf = PDF::loadView('pdf',compact('carts'));
+       Cart::truncate();
 //
+//       return $pdf->stream('123456.pdf',array('Attachment'=>0));
+       return redirect()->route('bill.create');
+   }
+
+   public function get($id){
+        $invoice=InvoiceMain::select('invoice_main.*','clientName','areaName','address')
+            ->leftJoin('client','client.clientId','invoice_main.clientId')
+            ->leftJoin('area','area.areaId','client.areaId')
+            ->findOrFail($id);
+
+
+
+
+       $carts=InvoiceChild::where('invoiceMainId',$id)
+           ->leftJoin('product','product.productId','invoice_child.productId')
+           ->get();
+
+
+       $pdf = PDF::loadView('pdf',compact('carts','invoice'));
        return $pdf->stream('123456.pdf',array('Attachment'=>0));
    }
+
    public function bill(){
        $clients=Client::get();
        $products=Product::get();

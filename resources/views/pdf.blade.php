@@ -8,6 +8,8 @@
     <style>
         body {
             background: #ddd none repeat scroll 0 0;
+            font-size: 14px;
+
         }
         .logo img {
             width: 80px;
@@ -64,6 +66,10 @@
             border: medium none;
             padding: 0;
         }
+        footer{
+            position: absolute;
+            bottom: 0px;
+        }
     </style>
     {{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--}}
     {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--}}
@@ -75,7 +81,7 @@
 
 <body style="background: #fff ">
 <div class="structure">
-    <div style= "background: #fff; padding: 40px; " class="container">
+    <div style= "background: #fff; padding: 10px; ">
 
         <table border="0" style="width:100%; margin-top: 20px; text-align: center; border: none;">
 
@@ -104,22 +110,24 @@
 
             <tr>
                 <td style="width:60%; border: none;">
-                    <h3 style="color: #0476BD">Client Name</h3>
-                    <p style="margin-top: -17px;">Client Name<br> Client Area<br>
-                        E: Client@gmail.com<br>
-                        P: 01923400000
+                    <h3 style="color: #0476BD">{{$invoice->clientName}}</h3>
+                    <p style="margin-top: -17px;">{{$invoice->areaName}}<br>
+                        {{$invoice->address}} <br>
+                        E: email<br>
+                        P: number
 
                     </p>
                 </td>
-                <td style="border: none;width:40%; margin-top: -100px;">
+                <td style="border: none; margin-top: -100px;">
                     <table style="margin-bottom: 70px;">
                         <tr >
                             <td>Invoice Number:</td>
                             <td ><b>12345678</b></td>
                         </tr>
+
                         <tr >
                             <td>Invoice Date: </td>
-                            <td >{{date('Y-m-d')}}</td>
+                            <td >{{\Carbon\Carbon::parse($invoice->created_at)->format('Y-m-d')}}</td>
                         </tr>
                         <tr >
                             <td>Payment Date:</td>
@@ -142,12 +150,12 @@
                 <td style="text-align: center;" colspan=""><b>Sku</b></td>
                 <td style="text-align: center;" colspan=""><b>Quantity</b></td>
                 <td style="text-align: center;" colspan=""><b>Rate</b></td>
-                <td style="text-align: center;" colspan=""><b>Discount</b></td>
+                <td style="text-align: center;" colspan=""><b>Discount (%)</b></td>
                 <td style="text-align: center;" colspan=""><b>Total</b></td>
             </tr>
             @php($grandTotal=0)
 
-            @foreach($cart as $product)
+            @foreach($carts as $product)
 
                 <tr>
                     <td style="text-align: center;">{{$product->productName}}</td>
@@ -184,20 +192,12 @@
 
         </table>
 
-        {{--<table border="0" style="width:100%; margin-top: 20px; text-align: center; border: none; margin-bottom: 0px;">--}}
-            {{--<tr>--}}
-                {{--<td style="text-align: center; border: none;">  <h4><b>***For Bank Details Please Check Next Page***</b></h4> </td>--}}
-            {{--</tr>--}}
-        {{--</table>--}}
-        {{--<p style="page-break-before: always"></p>--}}
-        {{--<div style="text-align: center;">Bank Details (Tech Cloud Ltd.)<br>--}}
-            {{------------------------------------------------  <br>--}}
-
-            {{--<img src="{{url('public/bankImage/').'/'.$bank->image}}" style="width: 80%;">--}}
-        {{--</div>--}}
 
 
     </div>
 </div>
+<footer>
+    <h5 align="center">This is system generated invoice at {{$invoice->created_at}}</h5>
+</footer>
 </body>
 </html>

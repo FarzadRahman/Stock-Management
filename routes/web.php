@@ -63,5 +63,6 @@ Route::post('/cart/deleteProduct','InvoiceController@deleteProduct')->name('cart
 
 //Invoice
 Route::get('invoice','InvoiceController@index')->name('invoice');
+Route::get('invoice/{id}','InvoiceController@get')->name('invoice.get');
 Route::get('bill/create','InvoiceController@bill')->name('bill.create');
 Route::get('invoice/generate/{clientId}','InvoiceController@generate')->name('invoice.generate');
