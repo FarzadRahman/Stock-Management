@@ -77,14 +77,7 @@
             $('#manageapplication').DataTable(
 
                 {
-                    "columnDefs": [
-                        {
-                            "targets": [0,1,3], //first column / numbering column
-                            "orderable": false, //set not orderable
-
-                        },
-
-                    ]
+                   "ordering":false
                 }
             );
         } );

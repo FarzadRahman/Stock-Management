@@ -16,6 +16,7 @@ class InvoiceController extends Controller
         $invoice=InvoiceMain::select('invoice_mainId','invoiceNumber','clientName','total','cashReceived','invoice_main.created_at','statusName')
             ->leftJoin('client','client.clientId','invoice_main.clientId')
             ->leftJoin('status','status.statusId','invoice_main.statusId')
+            ->orderBy('invoice_mainId','desc')
             ->get();
 
 //        return $invoice;
