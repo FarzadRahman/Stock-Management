@@ -1,5 +1,34 @@
 @extends('main')
 @section('content')
+
+    <!-- The Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Insert Payment</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body" id="paymentModalBody">
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    {{--<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>--}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
 <div class="card">
     <div class="card-header">
         <h4>Invoice</h4>
@@ -25,7 +54,7 @@
                     <td><a href="{{route('invoice.get',['id'=>$inv->invoice_mainId])}}">{{$inv->invoiceNumber}}</a></td>
                     <td>{{$inv->clientName}}</td>
                     <td>{{$inv->total}}</td>
-                    <td>{{$inv->cashReceived}}</td>
+                    <td><a href="#" data-panel-id="{{$inv->invoice_mainId}}" onclick="addPayment(this)">{{$inv->cashReceived}}</a></td>
                     <td>{{$inv->created_at}}</td>
                     <td>{{$inv->statusName}}</td>
 
@@ -81,6 +110,25 @@
                 }
             );
         } );
+
+        function addPayment(x) {
+            var invId=$(x).data('panel-id');
+
+            $.ajax({
+                type: 'POST',
+                url: "{!! route('payment.insertModal') !!}",
+                cache: false,
+                data: {_token: "{{csrf_token()}}",invId: invId},
+                success: function (data) {
+                    $('#paymentModal').modal();
+                    $('#paymentModalBody').html(data);
+//                    console.log(data);
+
+
+                }
+            });
+
+        }
     </script>
 
 @endsection
