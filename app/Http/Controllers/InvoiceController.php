@@ -19,7 +19,6 @@ class InvoiceController extends Controller
             ->orderBy('invoice_mainId','desc')
             ->get();
 
-//        return $invoice;
         return view('invoice',compact('invoice'));
     }
 
@@ -87,8 +86,8 @@ class InvoiceController extends Controller
    }
 
    public function bill(){
-       $clients=Client::get();
-       $products=Product::get();
+       $clients=Client::where('statusId',1)->get();
+       $products=Product::where('statusId',1)->get();
 
 
        return view('bill.create',compact('clients','products'));

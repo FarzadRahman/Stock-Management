@@ -19,6 +19,7 @@ class PaymentController extends Controller
 
         $invoice=InvoiceMain::findOrFail($id);
         $invoice->cashReceived=$r->amount;
+        $invoice->statusId=6;
         $invoice->save();
 
         return redirect()->route('invoice');

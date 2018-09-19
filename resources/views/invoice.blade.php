@@ -50,7 +50,7 @@
             </thead>
             <tbody>
             @foreach ($invoice as $inv)
-                <tr >
+                <tr @if($inv->total !=$inv->cashReceived) style="background: #FF5733"  @endif>
                     <td><a href="{{route('invoice.get',['id'=>$inv->invoice_mainId])}}">{{$inv->invoiceNumber}}</a></td>
                     <td>{{$inv->clientName}}</td>
                     <td>{{$inv->total}}</td>
@@ -63,15 +63,6 @@
 
             @endforeach
 
-            <tr style="background: #FF5733">
-                <td><a href="{{url('public/invoice/123456_2.pdf')}}">123456898</a></td>
-                <td>demo client</td>
-                <td>12000</td>
-                <td>0</td>
-                <td>2018-04-10</td>
-                <td>Due
-                </td>
-            </tr>
 
 
             </tbody>

@@ -18,8 +18,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::view('apply','usercv')->name('cv.apply');
-
-Route::view('dashboard','dashboard')->name('dashboard');
+//Dashboard
+Route::get('dashboard','DashboardController@index')->name('dashboard');
 
 
 //Client

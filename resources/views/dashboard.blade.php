@@ -12,39 +12,30 @@
 
             </thead>
             <tbody>
+            @php
+            $totalSale=0;
+            $totalReceived=0;
+            @endphp
+            @foreach($sales as $sale)
                 <tr>
-                    <td>Client 1</td>
-                    <td>10000</td>
-                    <td>8000</td>
-                    <td>2000</td>
-                </tr>
-                <tr>
-                    <td>Client 2</td>
-                    <td>10000</td>
-                    <td>8000</td>
-                    <td>2000</td>
+                    <td>{{$sale->clientName}}</td>
+                    <td>{{$sale->sale}}</td>
+                    <td>{{$sale->cashReceived}}</td>
+                    @php($totalSale+=$sale->sale)
+                    @php($totalReceived+=$sale->cashReceived)
+                    <td>{{$sale->sale - $sale->cashReceived}}</td>
+
                 </tr>
 
-                <tr>
-                    <td>Client 3</td>
-                    <td>10000</td>
-                    <td>8000</td>
-                    <td>2000</td>
-                </tr>
+            @endforeach
 
-                <tr>
-                    <td>Client 4</td>
-                    <td>10000</td>
-                    <td>8000</td>
-                    <td>2000</td>
-                </tr>
 
             </tbody>
             <tfoot>
                 <th colspan="1"></th>
-            <th>Total : <b>40000</b></th>
-            <th>Received : <b>36000</b></th>
-            <th>Due : <b>8000</b></th>
+            <th>Total : <b>{{$totalSale}}</b></th>
+            <th>Received : <b>{{$totalReceived}}</b></th>
+            <th>Due : <b>{{$totalSale-$totalReceived}}</b></th>
             </tfoot>
 
 
