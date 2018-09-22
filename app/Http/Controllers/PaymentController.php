@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\InvoiceMain;
+use App\Payment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,13 +13,22 @@ class PaymentController extends Controller
         $invoice=InvoiceMain::leftJoin('client','client.clientId','invoice_main.clientId')
             ->findOrFail($r->invId);
 
-        return view('payment.insertModal',compact('invoice'));
+
+        $payment=Payment::where('invoiceMainId',$r->invId)->get();
+        return view('payment.insertModal',compact('invoice','payment'));
     }
 
     public function insertPayment($id,Request $r){
+        $payment=new Payment();
+        $payment->invoiceMainId=$id;
+        $payment->payment=$r->amount;
+        $payment->save();
+
 
         $invoice=InvoiceMain::findOrFail($id);
-        $invoice->cashReceived=$r->amount;
+        $netPayment=$invoice->cashReceived;
+        $netPayment+=$r->amount;
+        $invoice->cashReceived=$netPayment;
         $invoice->statusId=6;
         $invoice->save();
 
