@@ -18,8 +18,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::view('apply','usercv')->name('cv.apply');
-
-Route::view('dashboard','dashboard')->name('dashboard');
+//Dashboard
+Route::get('dashboard','DashboardController@index')->name('dashboard');
 
 
 //Client
@@ -66,3 +66,8 @@ Route::get('invoice','InvoiceController@index')->name('invoice');
 Route::get('invoice/{id}','InvoiceController@get')->name('invoice.get');
 Route::get('bill/create','InvoiceController@bill')->name('bill.create');
 Route::get('invoice/generate/{clientId}','InvoiceController@generate')->name('invoice.generate');
+
+
+//Payment
+Route::post('payment/insertModal','PaymentController@insertModal')->name('payment.insertModal');
+Route::post('payment/insertPayment/{id}','PaymentController@insertPayment')->name('payment.insertPayment');
