@@ -11,7 +11,10 @@ use Illuminate\Http\Request;
 use PDF;
 class InvoiceController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
         $invoice=InvoiceMain::select('invoice_mainId','invoiceNumber','clientName','total','cashReceived','invoice_main.created_at','statusName')
             ->leftJoin('client','client.clientId','invoice_main.clientId')

@@ -9,6 +9,10 @@ use App\Http\Controllers\Controller;
 
 class PaymentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function insertModal(Request $r){
         $invoice=InvoiceMain::leftJoin('client','client.clientId','invoice_main.clientId')
             ->findOrFail($r->invId);

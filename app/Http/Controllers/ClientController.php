@@ -10,6 +10,10 @@ use App\Status;
 use Session;
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
         $areas=Area::get();
         $status=Status::where('statusType','state')
