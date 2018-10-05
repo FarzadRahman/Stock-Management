@@ -26,6 +26,7 @@ class PaymentController extends Controller
         $payment=new Payment();
         $payment->invoiceMainId=$id;
         $payment->payment=$r->amount;
+        $payment->other=$r->other;
         $payment->save();
 
 

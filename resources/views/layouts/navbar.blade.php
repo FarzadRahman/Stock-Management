@@ -21,13 +21,14 @@
                     <a href="{{route('invoice')}}"><i class="ti-archive"></i>Invoice</a>
                 </li>
 
-                {{--<li class="has-submenu">--}}
-                    {{--<a href="#"><i class="ti-settings"></i>Settings</a>--}}
-                    {{--<ul class="submenu">--}}
-                        {{--<li><a href="{{route('manage.zone')}}">Manage Zone</a></li>--}}
-                        {{--<li><a href="{{route('manage.education')}}">Manage Education</a></li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
+                <li class="has-submenu">
+                    <a href="#"><i class="ti-settings"></i>Settings</a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="{{route('area.index')}}">Manage Area</a>
+                        </li>
+                    </ul>
+                </li>
 
             </ul>
             <!-- End navigation menu -->

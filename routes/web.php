@@ -71,3 +71,14 @@ Route::get('invoice/generate/{clientId}','InvoiceController@generate')->name('in
 //Payment
 Route::post('payment/insertModal','PaymentController@insertModal')->name('payment.insertModal');
 Route::post('payment/insertPayment/{id}','PaymentController@insertPayment')->name('payment.insertPayment');
+
+//Password
+Route::get('account/password','HomeController@password')->name('account.password');
+Route::post('account/password','HomeController@changePassword')->name('account.changePassword');
+
+//Settings
+//Area
+Route::get('settings/area','AreaController@index')->name('area.index');
+Route::post('settings/area','AreaController@insert')->name('area.insert');
+Route::post('settings/edit','AreaController@edit')->name('area.edit');
+Route::post('settings/update','AreaController@update')->name('area.update');
