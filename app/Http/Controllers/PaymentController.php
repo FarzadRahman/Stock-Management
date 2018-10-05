@@ -33,7 +33,13 @@ class PaymentController extends Controller
         $netPayment=$invoice->cashReceived;
         $netPayment+=$r->amount;
         $invoice->cashReceived=$netPayment;
-        $invoice->statusId=6;
+        if($invoice->total ==$netPayment){
+            $invoice->statusId=6;
+        }
+        else{
+            $invoice->statusId=5;
+        }
+
         $invoice->save();
 
         return redirect()->route('invoice');
