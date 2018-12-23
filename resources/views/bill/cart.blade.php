@@ -1,7 +1,7 @@
 <table class="table table-bordered table-striped">
     <thead>
     <th>Product</th>
-    <th>Sku</th>
+    <th>Code</th>
     <th>Quantity</th>
     <th>Rate</th>
     <th>Discount (%)</th>
@@ -17,7 +17,7 @@
         <tr>
             {{--<input type="hidden" name="jobId[]" value="{{$job->jobId}}">--}}
             <td>{{$product->productName}}</td>
-            <td>{{$product->sku}}</td>
+            <td>{{$product->code}}</td>
             <td   onclick="listenForDoubleClick(this);" onblur="this.contentEditable=false;" data-panel-id="{{$product->cartId}}" onfocusout="changeQuantity(this)" >{{$product->quantity}}</td>
             <td>{{$product->price}}</td>
             <td   onclick="listenForDoubleClick(this);" onblur="this.contentEditable=false;" data-panel-id="{{$product->cartId}}" onfocusout="changeDiscount(this)">{{$product->discount}}</td>

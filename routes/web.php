@@ -67,6 +67,9 @@ Route::get('invoice/{id}','InvoiceController@get')->name('invoice.get');
 Route::get('bill/create','InvoiceController@bill')->name('bill.create');
 Route::get('invoice/generate/{clientId}','InvoiceController@generate')->name('invoice.generate');
 
+//Ledger
+Route::get('ledger','LedgerController@index')->name('ledger');
+Route::get('ledger/{id}','LedgerController@get')->name('ledger.get');
 
 //Payment
 Route::post('payment/insertModal','PaymentController@insertModal')->name('payment.insertModal');

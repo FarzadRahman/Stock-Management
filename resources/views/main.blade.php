@@ -97,7 +97,7 @@
 <div class="wrapper">
     <div class="container-fluid">
         @if(Session::has('message'))
-            <p class="alert alert-info">{{ Session::get('message') }}</p>
+            <p class="alert alert-info">{!! Session::get('message') !!}</p>
         @endif
 
         @yield('content')

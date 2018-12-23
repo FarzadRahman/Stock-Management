@@ -90,7 +90,7 @@
 
             <tr>
 
-                <td style="text-align: center; border: none;">  <h3><span style="border: 1px solid #787878; padding: 3px 40px;  background-color: #ddd;font-weight: bold">INVOICE</span> </h3> </td>
+                <td style="text-align: center; border: none;">  <h3><span style="border: 1px solid #787878; padding: 3px 40px;  background-color: #ddd;font-weight: bold">RETAIL LEDGER</span> </h3> </td>
 
             </tr>
 
@@ -114,12 +114,9 @@
 
             <tr>
                 <td style="width:60%; border: none;">
-                    <h3 style="color: #0476BD">{{$invoice->clientName}}</h3>
-                    <p style="margin-top: -17px;">{{$invoice->areaName}}<br>
-                        {{$invoice->address}} <br>
-                        E: email<br>
-                        P: number
-
+                    <h3 style="color: #0476BD">{{$client->clientName}}</h3>
+                    <p style="margin-top: -17px;">{{$client->areaName}}<br>
+                        {{$client->address}} <br>
                     </p>
                 </td>
                 <td style="border: none; margin-top: -100px;">
@@ -131,7 +128,7 @@
 
                         <tr >
                             <td>Invoice Date: </td>
-                            <td >{{\Carbon\Carbon::parse($invoice->created_at)->format('Y-m-d')}}</td>
+                            <td >{{date('Y-m-d')}}</td>
                         </tr>
                         <tr >
                             <td>Payment Date:</td>
@@ -149,49 +146,48 @@
 
         <table border="0" style="width:100%;">
             <tr style="background: #B0DBF0;">
-                {{--<td style="text-align: center;" colspan=""><b>Date</b></td>--}}
-                <td style="text-align: center;" colspan=""><b>Product Name</b></td>
-                <td style="text-align: center;" colspan=""><b>Code</b></td>
-                <td style="text-align: center;" colspan=""><b>Quantity</b></td>
-                <td style="text-align: center;" colspan=""><b>Rate</b></td>
-                {{--<td style="text-align: center;" colspan=""><b>Discount (%)</b></td>--}}
-                <td style="text-align: center;" colspan=""><b>Total</b></td>
+                <td style="text-align: center;" colspan=""><b>Date</b></td>
+                <td style="text-align: center;" colspan=""><b>MEMO NO.</b></td>
+                <td style="text-align: center;" colspan=""><b>OUT GOODS VALUE</b></td>
+                <td style="text-align: center;" colspan=""><b>PAID</b></td>
+                <td style="text-align: center;" colspan=""><b>BALANCE</b></td>
+                <td style="text-align: center;" colspan=""><b>DR/CR</b></td>
             </tr>
-            @php($grandTotal=0)
+            {{--@php($grandTotal=0)--}}
 
-            @foreach($carts as $product)
+            {{--@foreach($carts as $product)--}}
 
-                <tr>
-                    <td style="text-align: center;">{{$product->productName}}</td>
-                    <td style="text-align: center;">{{$product->code}}</td>
-                    <td style="text-align: center;">{{$product->quantity}}</td>
-                    <td style="text-align: center;">{{$product->rate}}</td>
+                {{--<tr>--}}
+                    {{--<td style="text-align: center;">{{$product->productName}}</td>--}}
+                    {{--<td style="text-align: center;">{{$product->code}}</td>--}}
+                    {{--<td style="text-align: center;">{{$product->quantity}}</td>--}}
+                    {{--<td style="text-align: center;">{{$product->rate}}</td>--}}
                     {{--<td style="text-align: center;">{{$product->discount}}</td>--}}
-                    <td style="text-align: center;">
-                        @php($grandTotal+=$product->quantity*$product->price*(100-$product->discount)/100)
-                        {{$product->quantity*$product->price*(100-$product->discount)/100}}
+                    {{--<td style="text-align: center;">--}}
+                        {{--@php($grandTotal+=$product->quantity*$product->price*(100-$product->discount)/100)--}}
+                        {{--{{$product->quantity*$product->price*(100-$product->discount)/100}}--}}
 
-                    </td>
-                </tr>
-            @endforeach
+                    {{--</td>--}}
+                {{--</tr>--}}
+            {{--@endforeach--}}
 
 
 
-            <tr>
-                <td colspan="4" style="text-align: right;"><b>Total =</b> </td>
-                <td style="text-align: center;">{{$grandTotal}} /-</td>
+            {{--<tr>--}}
+                {{--<td colspan="4" style="text-align: right;"><b>Total =</b> </td>--}}
+                {{--<td style="text-align: center;">{{$grandTotal}} /-</td>--}}
 
-            </tr>
-            <tr>
-                <td colspan="4" style="text-align: right;"><b>Paid =</b> </td>
-                <td style="text-align: center;">0</td>
+            {{--</tr>--}}
+            {{--<tr>--}}
+                {{--<td colspan="4" style="text-align: right;"><b>Paid =</b> </td>--}}
+                {{--<td style="text-align: center;">0</td>--}}
 
-            </tr>
-            <tr>
-                <td colspan="4" style="text-align: right;"><b>Due =</b> </td>
-                <td style="text-align: center;">{{$grandTotal}} /-</td>
+            {{--</tr>--}}
+            {{--<tr>--}}
+                {{--<td colspan="4" style="text-align: right;"><b>Due =</b> </td>--}}
+                {{--<td style="text-align: center;">{{$grandTotal}} /-</td>--}}
 
-            </tr>
+            {{--</tr>--}}
 
 
         </table>
@@ -200,6 +196,8 @@
 
     </div>
 </div>
+
+
 <footer>
     <table style="width:100%;margin: 20px; border: none;">
         <tr>
@@ -207,7 +205,8 @@
             <td style="width: 28%; border: none;"><p id="upperline">BUYER SIGNATURE & SEAL</p></td>
         </tr>
     </table>
-    <h5 align="center">This is system generated invoice at {{$invoice->created_at}}</h5>
+
+    <h5 align="center">This is system generated invoice at {{date('Y-m-d')}}</h5>
 </footer>
 </body>
 </html>

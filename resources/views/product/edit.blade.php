@@ -1,5 +1,6 @@
 <form method="post" action="{{route('product.insert')}}" enctype="multipart/form-data">
     {{csrf_field()}}
+    <input type="hidden" name="id" value="{{$product->productId}}">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -24,6 +25,18 @@
                 <label>Price</label>
                 <input type="number" class="form-control col-md-10" name="price" placeholder="Unit Price" value="{{$product->price}}">
             </div>
+
+            <div class="form-group">
+                <label>Status</label>
+                <select class="form-control col-md-10" name="status" required>
+                    <option value="">Select Status</option>
+                    @foreach($status as $state)
+                        <option value="{{$state->statusId}}" @if($state->statusId==$product->statusId) selected @endif>{{$state->statusName}}</option>
+                    @endforeach
+                </select>
+
+            </div>
+
             <div class="form-group">
                 <label>Image</label>
                 <input type="file" class="form-control col-md-10" name="image" placeholder="Image">

@@ -11,16 +11,16 @@
             <div class="col-md-3" style="text-align: center">Due :{{$invoice->total - $invoice->cashReceived}} </div>
             <div class="col-md-12"><hr></div>
 
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-4">
             <label>Amount</label>
             <input type="number" class="form-control" name="amount" placeholder="TK" required>
         </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-8">
                 <label>Remark</label>
                 <textarea class="form-control" name="other" placeholder="remark"></textarea>
             </div>
-            <div class="form-group col-md-3">
-                <button class="btn btn-sm btn-success">Insert</button>
+            <div class="form-group col-md-12 ">
+                <button class="btn btn-sm btn-success pull-right">Insert</button>
             </div>
 
             <div class="col-md-12" style="border: solid 1px black; height: 300px; overflow-y: scroll;">
@@ -34,7 +34,7 @@
                     @foreach($payment as $pay)
                         <tr>
                             <td>{{$pay->payment}}</td>
-                            <td>{{$pay->other}}</td>
+                            <td align="center">{{$pay->other}}</td>
                             <td>{{$pay->created_at}}</td>
                         </tr>
 

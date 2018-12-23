@@ -9,6 +9,7 @@ use App\InvoiceMain;
 use App\Product;
 use Illuminate\Http\Request;
 use PDF;
+use Session;
 class InvoiceController extends Controller
 {
     public function __construct()
@@ -58,15 +59,10 @@ class InvoiceController extends Controller
            ->leftJoin('product','product.productId','invoice_child.productId')
            ->get();
 
-
-
-//       return $cart;
-
-
-//       $pdf = PDF::loadView('pdf',compact('carts'));
        Cart::truncate();
-//
-//       return $pdf->stream('123456.pdf',array('Attachment'=>0));
+
+       Session::flash('message', 'Your Invoice Number is '.$invoice->invoiceNumber.' <a class="btn btn-success btn-sm" href="'.route("invoice.get",["id"=>$invoice->invoice_mainId]).'">Download</a>');
+
        return redirect()->route('bill.create');
    }
 

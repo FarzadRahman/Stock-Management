@@ -47,6 +47,16 @@
                                                   <input type="number" class="form-control col-md-10" name="price" placeholder="Unit Price">
                                               </div>
                                               <div class="form-group">
+                                                  <label>Status</label>
+                                                  <select class="form-control col-md-10" name="status" required>
+                                                      <option value="">Select Status</option>
+                                                      @foreach($status as $state)
+                                                          <option value="{{$state->statusId}}">{{$state->statusName}}</option>
+                                                      @endforeach
+                                                  </select>
+
+                                              </div>
+                                              <div class="form-group">
                                                   <label>Image</label>
                                                   <input type="file" class="form-control col-md-10" name="image" placeholder="Image">
                                               </div>
@@ -160,7 +170,7 @@
                             <th width="20%">Image</th>
                             <th width="20%">Product Name</th>
                             <th width="10%">Available/quantity</th>
-                            <th width="10%">Sku</th>
+                            <th width="10%">Code</th>
                             <th width="10%">Price/unit</th>
                             <th width="10%">Status</th>
                             <th width="20%">Action</th>
@@ -231,8 +241,8 @@
                                 ;},
                         "orderable": false, "searchable":false, "name":"selected_rows" },
                     { data: 'productName', name: 'productName' },
-                    { data: 'stock', name: 'stock' },
-                    { data: 'sku', name: 'sku' },
+                    { data: 'currentStock', name: 'currentStock' },
+                    { data: 'code', name: 'code' },
                     { data: 'price', name: 'price' },
                     { data: 'statusName', name: 'statusName' },
                     { "data": function(data){

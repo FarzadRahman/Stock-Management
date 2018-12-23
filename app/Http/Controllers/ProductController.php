@@ -12,6 +12,7 @@ use Session;
 use Image;
 use Yajra\DataTables\DataTables;
 use Auth;
+use DB;
 class ProductController extends Controller
 {
     public function __construct()
@@ -19,14 +20,23 @@ class ProductController extends Controller
         $this->middleware('auth');
     }
    public function index(){
-//        $products=Product::get();
-//
-//        return $products;
-       return view('product.all');
+       $status=Status::where('statusType','state')
+           ->get();
+
+
+
+       return view('product.all',compact('status'));
    }
 
    public function getProductData(Request $r){
-       $products=Product::leftJoin('status','status.statusId','product.statusId')->get();
+//       SELECT productId,SUM(quantity)-SUM(sold) as stock FROM `stock_log` GROUP BY productId
+//       $products=Product::leftJoin('status','status.statusId','product.statusId')->get();
+       $products=Product::select('product.*','status.statusName',DB::raw('SUM(stock_log.quantity)-SUM(stock_log.sold) as currentStock'))
+           ->leftJoin('stock_log','product.productId','stock_log.productId')
+           ->leftJoin('status','status.statusId','product.statusId')
+           ->groupBy('product.productId')
+           ->get();
+
        $datatables = Datatables::of($products);
        return $datatables->make(true);
    }
@@ -39,9 +49,18 @@ class ProductController extends Controller
            'price' => 'required|integer',
            'image'=>'image|mimes:jpeg,jpg',
        ]);
-//        return $r;
-       $product=new Product();
+       if($r->id){
+           $product=Product::findOrFail($r->id);
+
+           Session::flash('message', 'Product Updated successfully!');
+       }
+       else{
+           $product=new Product();
+           Session::flash('message', 'Product Added successfully!');
+       }
+
        $product->productName=$r->productName;
+       $product->statusId=$r->status;
        $product->sku=$r->sku;
        $product->code=$r->code;
        $product->price=$r->price;
@@ -61,7 +80,7 @@ class ProductController extends Controller
            $product->save();
        }
 
-       Session::flash('message', 'Product Added successfully!');
+
 
        return redirect()->route('product.all');
        }
@@ -69,7 +88,10 @@ class ProductController extends Controller
        public function edit(Request $r){
             $product=Product::findOrFail($r->productId);
 
-            return view('product.edit',compact('product'));
+            $status=Status::where('statusType','state')
+                ->get();
+
+            return view('product.edit',compact('product','status'));
        }
 
        public function stock(Request $r){
@@ -84,10 +106,9 @@ class ProductController extends Controller
            $total+=$r->quantity;
            $product->stock=$total;
            $product->save();
-            $status=Status::where('statusType','stock')
+           $status=Status::where('statusType','stock')
                 ->where('statusName','increase')
                 ->first();
-//            return $status;
 
             $log=new StockLog();
             $log->productId=$r->productId;
